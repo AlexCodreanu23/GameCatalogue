@@ -14,7 +14,7 @@ namespace GameCatalogue.Models
         [StringLength(50)]
         public string LastName { get; set; }
 
-        public ICollection<Review> Reviews { get; set; }
+        public ICollection<Review>? Reviews { get; set; }
 
     }
 }

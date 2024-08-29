@@ -22,7 +22,7 @@ namespace GameCatalogue.Models
 
         public SystemRequirement SystemRequirement { get; set; } 
 
-        public ICollection<Review> Reviews { get; set; } 
+        public ICollection<Review>? Reviews { get; set; } 
 
         public ICollection<Developer> Developers { get; set; } 
     }

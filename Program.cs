@@ -24,6 +24,9 @@ builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISystemRequirementRepository, SystemRequirementRepository>();
+builder.Services.AddScoped<ISystemRequirementService, SystemRequirementService>();
+
 
 
 var app = builder.Build();
