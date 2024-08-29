@@ -5,36 +5,39 @@ namespace GameCatalogue.Service
 {
     public class SystemRequirementService : ISystemRequirementService
     {
-        private readonly ISystemRequirementRepository _systemRequirementRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SystemRequirementService(ISystemRequirementRepository systemRequirementRepository)
+        public SystemRequirementService(IUnitOfWork unitOfWork)
         {
-            _systemRequirementRepository = systemRequirementRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public Task<SystemRequirement> GetSystemRequirementByIdAsync(int id)
         {
-            return _systemRequirementRepository.GetByIdAsync(id);
+            return _unitOfWork.SystemRequirements.GetByIdAsync(id);
         }
 
         public Task<IEnumerable<SystemRequirement>> GetAllSystemRequirementsAsync()
         {
-            return _systemRequirementRepository.GetAllAsync();
+            return _unitOfWork.SystemRequirements.GetAllAsync();
         }
 
-        public Task CreateSystemRequirementAsync(SystemRequirement systemRequirement)
+        public async Task CreateSystemRequirementAsync(SystemRequirement systemRequirement)
         {
-            return _systemRequirementRepository.AddAsync(systemRequirement);
+            await _unitOfWork.SystemRequirements.AddAsync(systemRequirement);
+            await _unitOfWork.CompleteAsync();
         }
 
-        public Task UpdateSystemRequirementAsync(SystemRequirement systemRequirement)
+        public async Task UpdateSystemRequirementAsync(SystemRequirement systemRequirement)
         {
-            return _systemRequirementRepository.UpdateAsync(systemRequirement);
+            await _unitOfWork.SystemRequirements.UpdateAsync(systemRequirement);
+            await _unitOfWork.CompleteAsync();
         }
 
-        public Task DeleteSystemRequirementAsync(int id)
+        public async Task DeleteSystemRequirementAsync(int id)
         {
-            return _systemRequirementRepository.DeleteAsync(id);
+            await _unitOfWork.SystemRequirements.DeleteAsync(id);
+            await _unitOfWork.CompleteAsync();
         }
     }
 }

@@ -5,36 +5,39 @@ namespace GameCatalogue.Service
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public Task<User> GetUserByIdAsync(string id)
         {
-            return _userRepository.GetByIdAsync(id);
+            return _unitOfWork.Users.GetByIdAsync(id);
         }
 
         public Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            return _userRepository.GetAllAsync();
+            return _unitOfWork.Users.GetAllAsync();
         }
 
-        public Task CreateUserAsync(User user)
+        public async Task CreateUserAsync(User user)
         {
-            return _userRepository.AddAsync(user);
+            await _unitOfWork.Users.AddAsync(user);
+            await _unitOfWork.CompleteAsync();
         }
 
-        public Task UpdateUserAsync(User user)
+        public async Task UpdateUserAsync(User user)
         {
-            return _userRepository.UpdateAsync(user);
+            await _unitOfWork.Users.UpdateAsync(user);
+            await _unitOfWork.CompleteAsync();
         }
 
-        public Task DeleteUserAsync(string id)
+        public async Task DeleteUserAsync(string id)
         {
-            return _userRepository.DeleteAsync(id);
+            await _unitOfWork.Users.DeleteAsync(id);
+            await _unitOfWork.CompleteAsync();
         }
     }
 }

@@ -5,36 +5,39 @@ namespace GameCatalogue.Service
 {
     public class ReviewService : IReviewService
     {
-        private readonly IReviewRepository _reviewRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ReviewService(IReviewRepository reviewRepository)
+        public ReviewService(IUnitOfWork unitOfWork)
         {
-            _reviewRepository = reviewRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public Task<Review> GetReviewByIdAsync(int id)
         {
-            return _reviewRepository.GetByIdAsync(id);
+            return _unitOfWork.Reviews.GetByIdAsync(id);
         }
 
         public Task<IEnumerable<Review>> GetAllReviewsAsync()
         {
-            return _reviewRepository.GetAllAsync();
+            return _unitOfWork.Reviews.GetAllAsync();
         }
 
-        public Task CreateReviewAsync(Review review)
+        public async Task CreateReviewAsync(Review review)
         {
-            return _reviewRepository.AddAsync(review);
+            await _unitOfWork.Reviews.AddAsync(review);
+            await _unitOfWork.CompleteAsync();
         }
 
-        public Task UpdateReviewAsync(Review review)
+        public async Task UpdateReviewAsync(Review review)
         {
-            return _reviewRepository.UpdateAsync(review);
+            await _unitOfWork.Reviews.UpdateAsync(review);
+            await _unitOfWork.CompleteAsync();
         }
 
-        public Task DeleteReviewAsync(int id)
+        public async Task DeleteReviewAsync(int id)
         {
-            return _reviewRepository.DeleteAsync(id);
+            await _unitOfWork.Reviews.DeleteAsync(id);
+            await _unitOfWork.CompleteAsync();
         }
     }
 }

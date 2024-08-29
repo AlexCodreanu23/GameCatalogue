@@ -5,37 +5,40 @@ namespace GameCatalogue.Service
 {
     public class GameService : IGameService
     {
-        private readonly IGameRepository _gameRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GameService(IGameRepository gameRepository)
+        public GameService(IUnitOfWork unitOfWork)
         {
-            _gameRepository = gameRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<Game> GetGameByIdAsync(int id)
+        public async Task<Game> GetGameByIdAsync(int id)
         {
-            return _gameRepository.GetByIdAsync(id);
+            return await _unitOfWork.Games.GetByIdAsync(id);
         }
 
-        public Task<IEnumerable<Game>> GetAllGamesAsync()
+        public async Task<IEnumerable<Game>> GetAllGamesAsync()
         {
-            return _gameRepository.GetAllAsync();
+            return await _unitOfWork.Games.GetAllAsync();
         }
 
-        public Task CreateGameAsync(Game game)
+        public async Task CreateGameAsync(Game game)
         {
-            return _gameRepository.AddAsync(game);
+            await _unitOfWork.Games.AddAsync(game);
+            await _unitOfWork.CompleteAsync();
         }
 
-        public Task UpdateGameAsync(Game game)
+        public async Task UpdateGameAsync(Game game)
         {
-            return _gameRepository.UpdateAsync(game);
+            await _unitOfWork.Games.UpdateAsync(game);
+            await _unitOfWork.CompleteAsync();
         }
 
-        public Task DeleteGameAsync(int id)
+        public async Task DeleteGameAsync(int id)
         {
-            return _gameRepository.DeleteAsync(id);
+            await _unitOfWork.Games.DeleteAsync(id);
+            await _unitOfWork.CompleteAsync();
         }
     }
-
 }
+

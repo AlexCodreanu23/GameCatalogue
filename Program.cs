@@ -30,7 +30,7 @@ builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
 builder.Services.AddScoped<IDeveloperService, DeveloperService>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 
