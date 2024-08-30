@@ -4,6 +4,7 @@ using GameCatalogue;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameCatalogue.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240830125618_UpdateSystemRequirementToNullable")]
+    partial class UpdateSystemRequirementToNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,25 +138,31 @@ namespace GameCatalogue.Migrations
                     b.Property<int>("RequirementsId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GameId")
+                    b.Property<int>("GameId")
                         .HasColumnType("int");
 
                     b.Property<string>("MinimumCPU")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MinimumRAM")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecommendedCPU")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecommendedGraphics")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecommendedRAM")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StorageRequired")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RequirementsId");
@@ -469,7 +478,8 @@ namespace GameCatalogue.Migrations
                 {
                     b.Navigation("Reviews");
 
-                    b.Navigation("SystemRequirement");
+                    b.Navigation("SystemRequirement")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GameCatalogue.Models.User", b =>

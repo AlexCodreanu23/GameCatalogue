@@ -1,4 +1,5 @@
-﻿using GameCatalogue.Models;
+﻿using GameCatalogue.DTO;
+using GameCatalogue.Models;
 using GameCatalogue.Repositories;
 
 namespace GameCatalogue.Service
@@ -39,6 +40,16 @@ namespace GameCatalogue.Service
             await _unitOfWork.Games.DeleteAsync(id);
             await _unitOfWork.CompleteAsync();
         }
+
+        public async Task<List<Game>> GetAffordableGamesAsync() 
+        {
+            return await _unitOfWork.Games.GetAffordableGamesAsync();
+        }
+
+        public async Task<List<IGrouping<string, Game>>> GetGameCountsByGenreAsync()
+        {
+            return await _unitOfWork.Games.GetGameCountsByGenreAsync();
+        }
+
     }
 }
-

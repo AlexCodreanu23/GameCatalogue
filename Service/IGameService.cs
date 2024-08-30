@@ -1,4 +1,5 @@
-﻿using GameCatalogue.Models;
+﻿using GameCatalogue.DTO;
+using GameCatalogue.Models;
 
 namespace GameCatalogue.Service
 {
@@ -9,6 +10,10 @@ namespace GameCatalogue.Service
         Task CreateGameAsync(Game game);
         Task UpdateGameAsync(Game game);
         Task DeleteGameAsync(int id);
+
+        Task<List<Game>> GetAffordableGamesAsync();
+        Task<List<IGrouping<string, Game>>> GetGameCountsByGenreAsync();
+
     }
 
 }

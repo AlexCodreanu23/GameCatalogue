@@ -58,5 +58,19 @@ namespace GameCatalogue.Controllers
             await _developerService.DeleteDeveloperAsync(id);
             return NoContent();
         }
+
+        [HttpGet("{id}/games")]
+        public async Task<ActionResult<Developer>> GetDeveloperWithGames(int id)
+        {
+            var developer = await _developerService.GetDeveloperWithGamesAsync(id);
+
+            if (developer == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(developer);
+        }
+
     }
 }

@@ -39,5 +39,11 @@ namespace GameCatalogue.Service
             await _unitOfWork.Developers.DeleteAsync(id);
             await _unitOfWork.CompleteAsync();
         }
+
+
+        public async Task<Developer> GetDeveloperWithGamesAsync(int developerId)
+        {
+            return await _unitOfWork.Developers.GetDeveloperWithGamesAsync(developerId);
+        }
     }
 }

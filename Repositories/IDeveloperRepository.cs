@@ -9,5 +9,7 @@ namespace GameCatalogue.Repositories
         Task AddAsync(Developer developer);
         Task UpdateAsync(Developer developer);
         Task DeleteAsync(int id);
+
+        Task<Developer> GetDeveloperWithGamesAsync(int developerId);
     }
 }

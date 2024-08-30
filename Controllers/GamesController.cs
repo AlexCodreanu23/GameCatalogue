@@ -1,4 +1,5 @@
-﻿using GameCatalogue.Models;
+﻿using GameCatalogue.DTO;
+using GameCatalogue.Models;
 using GameCatalogue.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,6 +58,19 @@ namespace GameCatalogue.Controllers
         {
             await _gameService.DeleteGameAsync(id);
             return NoContent();
+        }
+
+        [HttpGet("affordable")]
+        public async Task<ActionResult<List<Game>>> GetAffordableGames()
+        {
+            var affordableGames = await _gameService.GetAffordableGamesAsync();
+            return Ok(affordableGames);
+        }
+        [HttpGet("games-by-genre")]
+        public async Task<ActionResult<List<IGrouping<string, Game>>>> GetGameCountsByGenre()
+        {
+            var genreGameCounts = await _gameService.GetGameCountsByGenreAsync();
+            return Ok(genreGameCounts);
         }
     }
 }

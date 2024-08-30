@@ -43,5 +43,12 @@ namespace GameCatalogue.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<Developer> GetDeveloperWithGamesAsync(int developerId)
+        {
+            return await _context.Developers
+                .Include(d => d.Games)
+                .FirstOrDefaultAsync(d => d.DeveloperId == developerId);
+        }
     }
 }

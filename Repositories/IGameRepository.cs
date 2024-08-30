@@ -1,4 +1,5 @@
-﻿using GameCatalogue.Models;
+﻿using GameCatalogue.DTO;
+using GameCatalogue.Models;
 namespace GameCatalogue.Repositories;
 
 public interface IGameRepository
@@ -8,4 +9,8 @@ public interface IGameRepository
     Task AddAsync(Game game);
     Task UpdateAsync(Game game);
     Task DeleteAsync(int id);
+
+    Task<List<Game>> GetAffordableGamesAsync();
+    Task<List<IGrouping<string, Game>>> GetGameCountsByGenreAsync();
+
 }
