@@ -47,7 +47,8 @@ namespace GameCatalogue.Repositories
         public async Task<Developer> GetDeveloperWithGamesAsync(int developerId)
         {
             return await _context.Developers
-                .Include(d => d.Games)
+                .Include(d => d.GameDevelopers)
+                    .ThenInclude(gd => gd.Game)
                 .FirstOrDefaultAsync(d => d.DeveloperId == developerId);
         }
     }

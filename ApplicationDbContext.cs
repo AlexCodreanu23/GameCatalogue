@@ -37,10 +37,18 @@ namespace GameCatalogue
                 .WithOne(r => r.User)
                 .HasForeignKey(r => r.UserId);
 
-            modelBuilder.Entity<Game>()
-                .HasMany(g => g.Developers)
-                .WithMany(d => d.Games)
-                .UsingEntity(j => j.ToTable("GameDevelopers"));
+            modelBuilder.Entity<GameDeveloper>()
+                .HasKey(gd => new { gd.GameId, gd.DeveloperId });
+
+            modelBuilder.Entity<GameDeveloper>()
+                .HasOne(gd => gd.Game)
+                .WithMany(g => g.GameDevelopers)
+                .HasForeignKey(gd => gd.GameId);
+
+            modelBuilder.Entity<GameDeveloper>()
+                .HasOne(gd => gd.Developer)
+                .WithMany(d => d.GameDevelopers)
+                .HasForeignKey(gd => gd.DeveloperId);
         }
 
     }

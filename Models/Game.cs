@@ -22,6 +22,6 @@ namespace GameCatalogue.Models
 
         public ICollection<Review>? Reviews { get; set; } = new List<Review>();
 
-        public ICollection<Developer>? Developers { get; set; } = new List<Developer>();
+        public ICollection<GameDeveloper>? GameDevelopers { get; set; } = new List<GameDeveloper>();
     }
 }

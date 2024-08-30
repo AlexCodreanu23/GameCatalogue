@@ -1,4 +1,5 @@
-﻿using GameCatalogue.Models;
+﻿using GameCatalogue.DTO;
+using GameCatalogue.Models;
 using GameCatalogue.Repositories;
 
 namespace GameCatalogue.Service
@@ -41,9 +42,32 @@ namespace GameCatalogue.Service
         }
 
 
-        public async Task<Developer> GetDeveloperWithGamesAsync(int developerId)
+        public async Task<DeveloperDto> GetDeveloperWithGamesAsync(int developerId)
         {
-            return await _unitOfWork.Developers.GetDeveloperWithGamesAsync(developerId);
+            var developer = await _unitOfWork.Developers.GetDeveloperWithGamesAsync(developerId);
+
+            if (developer == null)
+            {
+                return null; 
+            }
+
+            var developerDto = new DeveloperDto
+            {
+                DeveloperId = developer.DeveloperId,
+                Name = developer.Name,
+                Country = developer.Country,
+                Email = developer.Email,
+                Games = developer.GameDevelopers.Select(gd => new GameDto
+                {
+                    GameId = gd.Game.GameId,
+                    Title = gd.Game.Title,
+                    Genre = gd.Game.Genre,
+                    Price = gd.Game.Price,
+                    ReleaseDate = gd.Game.ReleaseDate
+                }).ToList()
+            };
+
+            return developerDto;
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using GameCatalogue.DTO;
-using GameCatalogue.Models;
+﻿using GameCatalogue.Models;
 using GameCatalogue.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameCatalogue.Controllers
@@ -35,6 +35,7 @@ namespace GameCatalogue.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Game>> CreateGame(Game game)
         {
             await _gameService.CreateGameAsync(game);
@@ -42,6 +43,7 @@ namespace GameCatalogue.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateGame(int id, Game game)
         {
             if (id != game.GameId)

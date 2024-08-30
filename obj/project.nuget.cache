@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "8fCOrFuFb4Kyzz8n4psj3RiUwhEsq6W9p5pqIz386+uWCrRLxkHXocPwQj7LK7hBr0R7+NL8LzphjNz3JI2qZw==",
+  "dgSpecHash": "uriHz3xIbjwcy7MYHE3rzlPhKIk9SGBunuOlhHgyHPEw3A3DfODKUTiOwuqPPC/CLeR8rb1egsShQFnVRz+F6g==",
   "success": true,
   "projectFilePath": "C:\\Users\\alex2\\source\\repos\\GameCatalogue\\GameCatalogue\\GameCatalogue.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alex2\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\alex2\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\alex2\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\alex2\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.0\\microsoft.aspnetcore.authentication.jwtbearer.7.0.0.nupkg.sha512",
     "C:\\Users\\alex2\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.0\\microsoft.aspnetcore.cryptography.internal.7.0.0.nupkg.sha512",
     "C:\\Users\\alex2\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.0\\microsoft.aspnetcore.cryptography.keyderivation.7.0.0.nupkg.sha512",
     "C:\\Users\\alex2\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.0\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.0.nupkg.sha512",

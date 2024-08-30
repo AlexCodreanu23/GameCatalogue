@@ -75,3 +75,4 @@ C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\obj\Debug\net7.0\refint\
 C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\obj\Debug\net7.0\GameCatalogue.pdb
 C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\obj\Debug\net7.0\GameCatalogue.genruntimeconfig.cache
 C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\obj\Debug\net7.0\ref\GameCatalogue.dll
+C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

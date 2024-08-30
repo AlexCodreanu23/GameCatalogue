@@ -1,5 +1,7 @@
-﻿using GameCatalogue.Models;
+﻿using GameCatalogue.DTO;
+using GameCatalogue.Models;
 using GameCatalogue.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameCatalogue.Controllers
@@ -29,18 +31,20 @@ namespace GameCatalogue.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Developer>>> GetDevelopers()
         {
-            var developer = await _developerService.GetAllDevelopersAsync();
-            return Ok(developer);
+            var developers = await _developerService.GetAllDevelopersAsync();
+            return Ok(developers);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Developer>> CreateGame(Developer developer)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<Developer>> CreateDeveloper(Developer developer)
         {
             await _developerService.CreateDeveloperAsync(developer);
             return CreatedAtAction(nameof(GetDeveloper), new { id = developer.DeveloperId }, developer);
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateDeveloper(int id, Developer developer)
         {
             if (id != developer.DeveloperId)
@@ -53,6 +57,7 @@ namespace GameCatalogue.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteDeveloper(int id)
         {
             await _developerService.DeleteDeveloperAsync(id);
@@ -60,17 +65,16 @@ namespace GameCatalogue.Controllers
         }
 
         [HttpGet("{id}/games")]
-        public async Task<ActionResult<Developer>> GetDeveloperWithGames(int id)
+        public async Task<ActionResult<DeveloperDto>> GetDeveloperWithGames(int id)
         {
-            var developer = await _developerService.GetDeveloperWithGamesAsync(id);
+            var developerDto = await _developerService.GetDeveloperWithGamesAsync(id);
 
-            if (developer == null)
+            if (developerDto == null)
             {
                 return NotFound();
             }
 
-            return Ok(developer);
+            return Ok(developerDto);
         }
-
     }
 }

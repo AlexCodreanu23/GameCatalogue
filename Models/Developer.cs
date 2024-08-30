@@ -21,7 +21,7 @@ namespace GameCatalogue.Models
         [Range(0, double.MaxValue)]
         public decimal Salary { get; set; }
 
-        public ICollection<Game>? Games { get; set; }
+        public ICollection<GameDeveloper>? GameDevelopers { get; set; } = new List<GameDeveloper>();
 
     }
 }

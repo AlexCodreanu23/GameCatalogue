@@ -4,8 +4,6 @@ using GameCatalogue.Repositories;
 using GameCatalogue.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +14,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -32,8 +37,6 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -43,7 +46,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
@@ -58,21 +63,25 @@ using (var scope = app.Services.CreateScope())
     {
         await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
-
-    var testUser = await userManager.FindByEmailAsync("testuser@example.com");
-    if (testUser == null)
+    if (!await roleManager.RoleExistsAsync("User"))
     {
-        testUser = new User
+        await roleManager.CreateAsync(new IdentityRole("User"));
+    }
+
+    var adminUser = await userManager.FindByEmailAsync("admin@example.com");
+    if (adminUser == null)
+    {
+        adminUser = new User
         {
-            UserName = "testuser@example.com",
-            Email = "testuser@example.com",
-            FirstName = "Test",
+            UserName = "admin@example.com",
+            Email = "admin@example.com",
+            FirstName = "Admin",
             LastName = "User"
         };
-        var result = await userManager.CreateAsync(testUser, "Test@1234");
+        var result = await userManager.CreateAsync(adminUser, "Admin@1234");
         if (result.Succeeded)
         {
-            await userManager.AddToRoleAsync(testUser, "Admin");
+            await userManager.AddToRoleAsync(adminUser, "Admin");
         }
         else
         {
@@ -83,8 +92,29 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
-
+    var regularUser = await userManager.FindByEmailAsync("user@example.com");
+    if (regularUser == null)
+    {
+        regularUser = new User
+        {
+            UserName = "user@example.com",
+            Email = "user@example.com",
+            FirstName = "Regular",
+            LastName = "User"
+        };
+        var result = await userManager.CreateAsync(regularUser, "User@1234");
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(regularUser, "User");
+        }
+        else
+        {
+            foreach (var error in result.Errors)
+            {
+                Console.WriteLine($"Error: {error.Description}");
+            }
+        }
+    }
 }
 
-app.MapControllers();
 app.Run();

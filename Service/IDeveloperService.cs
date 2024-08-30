@@ -1,4 +1,5 @@
-﻿using GameCatalogue.Models;
+﻿using GameCatalogue.DTO;
+using GameCatalogue.Models;
 
 namespace GameCatalogue.Service
 {
@@ -10,6 +11,6 @@ namespace GameCatalogue.Service
         Task UpdateDeveloperAsync(Developer developer);
         Task DeleteDeveloperAsync(int id);
 
-        Task<Developer> GetDeveloperWithGamesAsync(int developerId);
+        Task<DeveloperDto> GetDeveloperWithGamesAsync(int developerId);
     }
 }
