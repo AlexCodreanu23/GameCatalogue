@@ -7,5 +7,6 @@
         public string Genre { get; set; }
         public decimal Price { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public List<int> DeveloperIds { get; set; }
     }
 }

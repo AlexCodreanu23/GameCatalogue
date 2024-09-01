@@ -35,7 +35,6 @@ namespace GameCatalogue.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Game>> CreateGame(Game game)
         {
             await _gameService.CreateGameAsync(game);

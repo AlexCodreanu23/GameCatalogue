@@ -59,8 +59,5 @@ namespace GameCatalogue.Repositories
                 .ToListAsync();
         }
 
-
-
-
     }
 }
