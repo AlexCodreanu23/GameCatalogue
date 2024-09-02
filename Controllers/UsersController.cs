@@ -9,10 +9,12 @@ namespace GameCatalogue.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
+        private readonly EmailService _emailService;
         private readonly IUserService _userService;
 
-        public UsersController(IUserService userService)
+        public UsersController(EmailService emailService, IUserService userService)
         {
+            _emailService = emailService;
             _userService = userService;
         }
 
@@ -31,6 +33,10 @@ namespace GameCatalogue.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             var users = await _userService.GetAllUsersAsync();
+            var subject = "User Data Accessed";
+            var plainTextContent = "The user data has been accessed.";
+            var htmlContent = "<strong>The user data has been accessed.</strong>";
+            await _emailService.SendEmailAsync("silviu.codreanu@gmail.com", subject, plainTextContent, htmlContent);
             return Ok(users);
         }
 

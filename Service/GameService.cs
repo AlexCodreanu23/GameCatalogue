@@ -41,7 +41,7 @@ namespace GameCatalogue.Service
             await _unitOfWork.CompleteAsync();
         }
 
-        public async Task<List<Game>> GetAffordableGamesAsync() 
+        public async Task<List<Game>> GetAffordableGamesAsync()
         {
             return await _unitOfWork.Games.GetAffordableGamesAsync();
         }

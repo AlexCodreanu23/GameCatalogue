@@ -28,6 +28,7 @@ namespace GameCatalogue.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
             var games = await _gameService.GetAllGamesAsync();

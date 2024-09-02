@@ -76,3 +76,6 @@ C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\obj\Debug\net7.0\GameCat
 C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\obj\Debug\net7.0\GameCatalogue.genruntimeconfig.cache
 C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\obj\Debug\net7.0\ref\GameCatalogue.dll
 C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\bin\Debug\net7.0\SendGrid.dll
+C:\Users\alex2\source\repos\GameCatalogue\GameCatalogue\bin\Debug\net7.0\StarkbankEcdsa.dll

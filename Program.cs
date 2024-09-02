@@ -1,4 +1,4 @@
-using GameCatalogue;
+﻿using GameCatalogue;
 using GameCatalogue.Models;
 using GameCatalogue.Repositories;
 using GameCatalogue.Service;
@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -25,6 +24,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -42,12 +42,22 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+builder.Services.AddSingleton<EmailService>(provider =>
+{
+    var apiKey = builder.Configuration["Sendinblue:ApiKey"];
+    if (string.IsNullOrEmpty(apiKey))
+    {
+        throw new InvalidOperationException("Sendinblue API Key is not configured.");
+    }
+    return new EmailService(apiKey);
+});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000") 
+            policy.WithOrigins("http://localhost:3000")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -68,7 +78,6 @@ app.UseRouting();
 app.UseCors("AllowReactApp");
 
 app.MapControllers();
-
 
 using (var scope = app.Services.CreateScope())
 {

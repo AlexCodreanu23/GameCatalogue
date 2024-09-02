@@ -4,7 +4,7 @@ using GameCatalogue.Models;
 
 namespace GameCatalogue
 {
-    public class ApplicationDbContext : IdentityDbContext<User> 
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
